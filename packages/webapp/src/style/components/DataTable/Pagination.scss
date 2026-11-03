@@ -18,7 +18,7 @@
       border-radius: 5px;
 
       &:hover{
-        background-color: #E6EFFB;
+        background-color: var(--e-line);
       }
     }
 
@@ -50,7 +50,7 @@
     &.is-active{
       &.bp4-intent-primary:disabled,
       &.bp4-intent-primary.bp4-disabled{
-        background-color: #E6EFFB;
+        background-color: var(--e-line);
       }
 
       &:not([class*="bp4-intent-"]) {

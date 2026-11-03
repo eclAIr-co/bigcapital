@@ -1,0 +1,77 @@
+// eclAIr books: Bigcapital on eclAIr's paper (Keith, 3 Nov 2026; route 2, eclAIr's own fork). Loaded last in App.scss, after _tokens.scss
+// maps Bigcapital's colours by role. Here: eclAIr's type (ET Book for what's read, Source Sans 3 for small uppercase labels), square
+// quiet shapes, the button that acts in ink, links in ink, and no red. Tokens copied from eclAIr's public/tokens.css and stationery.js.
+@font-face { font-family: 'ET Book'; src: url('./fonts/et-book-roman-line-figures.woff') format('woff'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'ET Book'; src: url('./fonts/et-book-display-italic-old-style-figures.woff') format('woff'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'Source Sans 3'; src: url('./fonts/source-sans-3-roman-300-600.woff2') format('woff2'); font-weight: 300 600; }
+
+html:root {
+  --e-paper: #fafaf8; --e-card: #fefefe; --e-ink: #1a1a1a; --e-body: #333; --e-mute: #696969; --e-rule: #e0e0dc; --e-line: #c7c5bd;
+  --e-watch: #73879f; --e-needed: #c06a3e; --e-handled: #5a8a7a; --e-needed-text: #9d5733; --e-handled-text: #4a7164;
+  --e-serif: 'ET Book', Palatino, Georgia, serif; --e-sans: 'Source Sans 3', -apple-system, 'Helvetica Neue', sans-serif;
+  --color-app-body: var(--e-paper); --color-dashboard-insider-background: var(--e-paper);
+}
+html .bp4-dark, html body.bp4-dark {
+  --e-paper: #1d1c19; --e-card: #25241f; --e-ink: #ecebe5; --e-body: #c9c7bf; --e-mute: #a39f95; --e-rule: #3a3832; --e-line: #5c5950;
+  --e-watch: #a7b9cf; --e-needed: #e0895c; --e-handled: #7fae9e; --e-needed-text: #e0895c; --e-handled-text: #7fae9e;
+  --color-app-body: var(--e-paper); --color-dashboard-insider-background: var(--e-paper);
+}
+html, body { background: var(--e-paper); color: var(--e-ink); }
+body { font-family: var(--e-serif); font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+// what's read is ET Book: page titles, table cells, amounts, form fields, dialogs
+h1, h2, h3, h4, .bp4-heading, .bp4-dialog-header .bp4-heading, .bp4-input, .bp4-text-content, .bp4-menu-item, .bp4-button,
+.table .td, .bigcapital-datatable .td, .financial-sheet, .financial-statement, .bp4-tag { font-family: var(--e-serif) !important; }
+.table .td, .bigcapital-datatable .td, .financial-sheet { font-variant-numeric: lining-nums; }
+// small labels are Source Sans 3, uppercase, spaced
+.bp4-label, label.bp4-label, .table .th, .bigcapital-datatable .th, .bp4-form-group > label, .bp4-tab {
+  font-family: var(--e-sans) !important; font-weight: 600 !important; font-size: 11px !important; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--e-mute) !important;
+}
+
+// square and quiet
+.bp4-button, .bp4-input, .bp4-input-group .bp4-input, .bp4-html-select select, .bp4-select select, .bp4-card, .bp4-dialog, .bp4-popover,
+.bp4-popover2, .bp4-popover-content, .bp4-popover2-content, .bp4-menu, .bp4-tag, .bp4-callout, .bp4-toast, .bp4-drawer, .bp4-control-indicator,
+.bp4-button-group .bp4-button, .bp4-tab-indicator { border-radius: 0 !important; }
+.bp4-card, .bp4-dialog, .bp4-popover, .bp4-popover2, .bp4-drawer, .bp4-toast, .bp4-menu { box-shadow: 0 0 0 1px var(--e-rule) !important; }
+.bp4-input { box-shadow: none !important; border: 1px solid var(--e-line) !important; background: var(--e-card) !important; color: var(--e-ink) !important; }
+.bp4-input:focus, .bp4-input.bp4-active { border-color: var(--e-needed) !important; box-shadow: 0 0 0 1px var(--e-needed) !important; }
+.bp4-button { box-shadow: none !important; background-image: none !important; }
+.bp4-button:not([class*='bp4-intent-']):not(.bp4-minimal) { background: var(--e-card) !important; color: var(--e-ink) !important; border: 1px solid var(--e-line) !important; }
+.bp4-button:not([class*='bp4-intent-']):not(.bp4-minimal):hover { border-color: var(--e-ink) !important; }
+// the button that acts is ink; its hover turns it to a line
+.bp4-button.bp4-intent-primary { background: var(--e-ink) !important; color: var(--e-paper) !important; border: 1px solid var(--e-ink) !important; }
+.bp4-button.bp4-intent-primary:hover { background: transparent !important; color: var(--e-ink) !important; }
+.bp4-button.bp4-intent-primary .bp4-icon { color: inherit !important; }
+.bp4-button.bp4-intent-primary.bp4-minimal { background: none !important; color: var(--e-ink) !important; border-color: transparent !important; }
+// no red: danger speaks in the deeper orange; success in sage; warning is needed
+.bp4-intent-danger, .bp4-text-danger, .bp4-form-group.bp4-intent-danger .bp4-form-helper-text { color: var(--e-needed-text) !important; }
+.bp4-button.bp4-intent-danger { background: transparent !important; color: var(--e-needed-text) !important; border: 1px solid var(--e-needed) !important; }
+.bp4-button.bp4-intent-danger:hover { background: var(--e-needed) !important; color: var(--e-paper) !important; }
+.bp4-input.bp4-intent-danger, .bp4-intent-danger .bp4-input { border-color: var(--e-needed) !important; box-shadow: none !important; }
+.bp4-button.bp4-intent-success { background: var(--e-handled) !important; color: var(--e-paper) !important; border: 1px solid var(--e-handled) !important; }
+.bp4-button.bp4-intent-warning { background: transparent !important; color: var(--e-needed-text) !important; border: 1px solid var(--e-needed) !important; }
+.bp4-tag { background: transparent !important; color: var(--e-ink) !important; box-shadow: inset 0 0 0 1px var(--e-line) !important; }
+.bp4-tag.bp4-intent-success { color: var(--e-handled-text) !important; box-shadow: inset 0 0 0 1px var(--e-handled) !important; }
+.bp4-tag.bp4-intent-danger, .bp4-tag.bp4-intent-warning { color: var(--e-needed-text) !important; box-shadow: inset 0 0 0 1px var(--e-needed) !important; }
+.bp4-tag.bp4-intent-primary { color: var(--e-ink) !important; box-shadow: inset 0 0 0 1px var(--e-ink) !important; }
+.bp4-callout { background: transparent !important; border-left: 2px solid var(--e-line); }
+.bp4-callout.bp4-intent-danger, .bp4-callout.bp4-intent-warning { border-left-color: var(--e-needed); }
+.bp4-callout.bp4-intent-success { border-left-color: var(--e-handled); }
+// links in ink, underlined
+a, .bp4-link { color: var(--e-ink); text-decoration: underline; text-decoration-color: var(--e-line); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--e-ink); }
+// checkboxes and switches: ink when on
+.bp4-control input:checked ~ .bp4-control-indicator { background: var(--e-ink) !important; box-shadow: none !important; }
+.bp4-control.bp4-switch input:checked ~ .bp4-control-indicator { background: var(--e-ink) !important; }
+.bp4-control .bp4-control-indicator { box-shadow: inset 0 0 0 1px var(--e-line) !important; background: var(--e-card) !important; }
+// tabs: an ink rule under the one open
+.bp4-tab[aria-selected='true'], .bp4-tab:hover { color: var(--e-ink) !important; }
+.bp4-tab-indicator-wrapper .bp4-tab-indicator { background: var(--e-ink) !important; height: 2px !important; }
+// menus
+.bp4-menu-item:hover, .bp4-menu-item.bp4-active { background: var(--e-rule) !important; color: var(--e-ink) !important; }
+.bp4-menu-item.bp4-intent-danger { color: var(--e-needed-text) !important; }
+// plain buttons (the top bar's Quick find, Quick new, Help; table toolbars) and their icons in ink
+.bp4-button.bp4-minimal:not([class*='bp4-intent-danger']) { color: var(--e-ink) !important; }
+.bp4-button.bp4-minimal .bp4-icon, .bp4-button.bp4-minimal svg { color: inherit !important; fill: currentColor; }
+.bp4-button.bp4-minimal:hover { background: var(--e-rule) !important; }

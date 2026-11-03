@@ -108,7 +108,7 @@ body.hide-scrollbar .Pane2 {
 }
 
 .bp4-progress-bar.bp4-intent-primary .bp4-progress-meter {
-  background-color: #0066ff;
+  background-color: var(--e-ink);
 }
 
 .ReactVirtualized__Collection {}
@@ -308,3 +308,7 @@ span.table-tooltip-overview-target {
 :root {
   --top-offset: 60px;
 }
+
+// eclAIr books (eclAIr's fork): colours mapped by role, then eclAIr's type and shapes. Last, so they win.
+@import 'eclair/tokens';
+@import 'eclair/eclair';

@@ -28,7 +28,7 @@
     .thead {
       .tr .th {
         padding: 10px 10px;
-        background-color: #f0f2f8;
+        background-color: var(--e-line);
         font-size: 14px;
         color: #415060;
         border-bottom: 1px solid #d2dce2;
@@ -47,7 +47,7 @@
         min-height: 40px;
 
         &.index {
-          background-color: #f0f2f8;
+          background-color: var(--e-line);
           color: #718294;
 
           > span {
@@ -82,7 +82,7 @@
           padding-right: 4px;
 
           &:focus {
-            box-shadow: 0 0 0 2px #116cd0;
+            box-shadow: 0 0 0 2px var(--e-ink);
           }
         }
         .form-group--select-list .bp4-button {
@@ -237,7 +237,7 @@
       }
 
       &:first-of-type{
-        background-color: #f0f2f8;
+        background-color: var(--e-line);
       }
 
 

@@ -657,9 +657,10 @@ $pt-popover-box-shadow:
   0 2px 4px rgba(16, 22, 26, 0.1),
   0 8px 24px rgba(16, 22, 26, 0.1);
 
-$blue1: #0069ff;
-$blue2: #0052ff;
-$blue3: rgb(0, 82, 204);
+// eclAIr: Bigcapital's blues become ink
+$blue1: #1a1a1a;
+$blue2: #1a1a1a;
+$blue3: #1a1a1a;
 
 $pt-link-color: $blue3;
 $pt-intent-primary: $blue1;
@@ -670,7 +671,7 @@ $breadcrumbs-collapsed-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.o
 
 $sidebar-zindex: 16;
 $pt-font-family:
-  'Noto Sans',
+  'Source Sans 3',
   -apple-system,
   BlinkMacSystemFont,
   Segoe UI,
@@ -716,9 +717,9 @@ $zindex-dashboard-splash-screen: 39;
 $zindex-toast: 40;
 
 // Controls
-$control-checked-background-color: #0069ff !default;
-$control-checked-background-color-hover: #0069ff !default;
-$control-checked-background-color-active: #0069ff !default;
+$control-checked-background-color: #1a1a1a !default;
+$control-checked-background-color-hover: #1a1a1a !default;
+$control-checked-background-color-active: #1a1a1a !default;
 $control-box-shadow: inset 0 0 0 1px #666 !default;
 
 // Drawer

@@ -1,7 +1,7 @@
 
 
 body{
-  color: #1f3255;
+  color: var(--e-ink);
 
   [lang='ar'] &{
     font-size: 15px;
