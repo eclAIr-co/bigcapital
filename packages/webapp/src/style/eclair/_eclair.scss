@@ -8,12 +8,14 @@
 html:root {
   --e-paper: #fafaf8; --e-card: #fefefe; --e-ink: #1a1a1a; --e-body: #333; --e-mute: #696969; --e-rule: #e0e0dc; --e-line: #c7c5bd;
   --e-watch: #73879f; --e-needed: #c06a3e; --e-handled: #5a8a7a; --e-needed-text: #9d5733; --e-handled-text: #4a7164;
+  --e-you: #24324a;
   --e-serif: 'ET Book', Palatino, Georgia, serif; --e-sans: 'Source Sans 3', -apple-system, 'Helvetica Neue', sans-serif;
   --color-app-body: var(--e-paper); --color-dashboard-insider-background: var(--e-paper);
 }
 html .bp4-dark, html body.bp4-dark {
   --e-paper: #1d1c19; --e-card: #25241f; --e-ink: #ecebe5; --e-body: #c9c7bf; --e-mute: #a39f95; --e-rule: #3a3832; --e-line: #5c5950;
   --e-watch: #a7b9cf; --e-needed: #e0895c; --e-handled: #7fae9e; --e-needed-text: #e0895c; --e-handled-text: #7fae9e;
+  --e-you: #a8b8d8;
   --color-app-body: var(--e-paper); --color-dashboard-insider-background: var(--e-paper);
 }
 html, body { background: var(--e-paper); color: var(--e-ink); }
@@ -105,3 +107,9 @@ html body.bp4-dark .sidebar, html body.bp4-dark .sidebar__inner { background: va
 html body.bp4-dark .bp4-popover .bp4-popover-content, html body.bp4-dark .bp4-popover2 .bp4-popover2-content,
 html body.bp4-dark .bp4-menu { background: var(--e-card) !important; color: var(--e-ink) !important; }
 .sidebar__eclair-e svg { width: 100%; height: 100%; display: block; }
+
+// ink lines (Keith, 3 Nov 2026): what a person types is in their ink (blue-black, moonlit blue at night), what the books work out is
+// black print. Placeholders stay quiet labels.
+.bp4-input, input.bp4-input, textarea.bp4-input, .bp4-input-group .bp4-input, .bp4-html-select select, .bp4-select select,
+.table .td input, .bigcapital-datatable .td input, .datatable-editable .td input, .bp4-editable-text-content { color: var(--e-you) !important; }
+.bp4-input::placeholder, textarea::placeholder, input::placeholder { color: var(--e-mute) !important; opacity: 1; }

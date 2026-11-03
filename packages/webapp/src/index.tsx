@@ -1,4 +1,6 @@
 // @ts-nocheck
+// eclAIr books: report negatives in parentheses (src/eclair/negatives.ts).
+import './eclair/negatives';
 import 'regenerator-runtime/runtime';
 import './wdyr';
 import React from 'react';
