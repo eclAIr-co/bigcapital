@@ -113,3 +113,8 @@ html body.bp4-dark .bp4-menu { background: var(--e-card) !important; color: var(
 .bp4-input, input.bp4-input, textarea.bp4-input, .bp4-input-group .bp4-input, .bp4-html-select select, .bp4-select select,
 .table .td input, .bigcapital-datatable .td input, .datatable-editable .td input, .bp4-editable-text-content { color: var(--e-you) !important; }
 .bp4-input::placeholder, textarea::placeholder, input::placeholder { color: var(--e-mute) !important; opacity: 1; }
+// night reports: Bigcapital tints report rows a dark slate; keep them on the warm umber card, and the highlighted button a rule
+html body.bp4-dark .financial-sheet .th, html body.bp4-dark .financial-sheet .td,
+html body.bp4-dark [class*='financial-sheet'] .th, html body.bp4-dark [class*='financial-sheet'] .td { background-color: transparent !important; }
+html body.bp4-dark .button--gray-highlight { background-color: var(--e-rule) !important; }
+html body.bp4-dark .bigcapital-datatable .th, html body.bp4-dark .bigcapital-datatable .td { background-color: transparent !important; }
