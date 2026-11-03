@@ -118,3 +118,7 @@ html body.bp4-dark .financial-sheet .th, html body.bp4-dark .financial-sheet .td
 html body.bp4-dark [class*='financial-sheet'] .th, html body.bp4-dark [class*='financial-sheet'] .td { background-color: transparent !important; }
 html body.bp4-dark .button--gray-highlight { background-color: var(--e-rule) !important; }
 html body.bp4-dark .bigcapital-datatable .th, html body.bp4-dark .bigcapital-datatable .td { background-color: transparent !important; }
+
+// reports head with the organization's own logo, above its name; printed too
+.financial-sheet__logo { display: block; margin: 0 auto 10px; max-height: 64px; max-width: 160px; object-fit: contain; }
+html body.bp4-dark .financial-sheet__logo { background: #fafaf8; padding: 6px 10px; }

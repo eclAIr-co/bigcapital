@@ -13,6 +13,8 @@ import {
   FinancialSheetTitle,
 } from './StyledFinancialSheet';
 import { FormattedMessage as T } from '@/components';
+// eclAIr books: each report heads with the organization's own logo from Branding (Keith, 3 Nov 2026).
+import { useCurrentOrganizationMetadata } from '@/hooks/query';
 
 interface FinancialSheetProps {
   companyName?: string;
@@ -55,6 +57,7 @@ export function FinancialSheet({
     [getBasisLabel, basis],
   );
   const hasHead = companyName || sheetType || dateText;
+  const logoUri = useCurrentOrganizationMetadata()?.logoUri;
 
   return (
     <FinancialSheetRoot
@@ -64,6 +67,9 @@ export function FinancialSheet({
     >
       {hasHead && (
         <div>
+          {companyName && logoUri && (
+            <img className="financial-sheet__logo" src={logoUri} alt="" />
+          )}
           {companyName && (
             <FinancialSheetTitle data-testId="financial-sheet-title">
               {companyName}
