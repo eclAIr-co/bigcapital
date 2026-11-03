@@ -75,3 +75,33 @@ a:hover { text-decoration-color: var(--e-ink); }
 .bp4-button.bp4-minimal:not([class*='bp4-intent-danger']) { color: var(--e-ink) !important; }
 .bp4-button.bp4-minimal .bp4-icon, .bp4-button.bp4-minimal svg { color: inherit !important; fill: currentColor; }
 .bp4-button.bp4-minimal:hover { background: var(--e-rule) !important; }
+
+// the sidebar's head: Nicki's eclair script alone, in ink, as the button that opens the organization menu
+.sidebar__eclair { color: var(--e-ink); line-height: 0; display: block; }
+.sidebar__eclair svg { height: 34px; width: auto; max-width: 100%; display: block; }
+.sidebar--mini-sidebar .sidebar__eclair { display: none; }
+.sidebar__head .subtitle { color: var(--e-mute) !important; font-family: var(--e-sans); }
+.sidebar__head-organization .bp4-button, .sidebar__head-organization .bp4-button .bp4-button-text { color: var(--e-ink) !important; background: transparent !important; border: 0 !important; font-family: var(--e-serif) !important; font-size: 17px; }
+.sidebar__head-organization svg { fill: var(--e-mute) !important; }
+// the organization menu was drawn for a dark sidebar
+.bp4-popover .bp4-menu .bp4-menu-item, .bp4-popover2 .bp4-menu .bp4-menu-item { color: var(--e-ink) !important; }
+.bp4-popover .bp4-menu .bp4-menu-item .bp4-icon, .bp4-popover2 .bp4-menu .bp4-menu-item .bp4-icon { color: var(--e-mute) !important; }
+.bp4-popover .bp4-menu-divider, .bp4-popover2 .bp4-menu-divider { border-top-color: var(--e-rule) !important; }
+// night: links and checks in ink, never a light blue; the organization's name without a box
+html .bp4-dark a, html .bp4-dark .bp4-link, html body.bp4-dark a { color: var(--e-ink) !important; }
+html .bp4-dark .bp4-menu-item.bp4-active, html .bp4-dark .bp4-menu-item:hover { background: var(--e-rule) !important; }
+.bp4-menu-item .bp4-icon-tick, .bp4-menu-item [data-icon='tick'] { color: var(--e-ink) !important; fill: var(--e-ink) !important; }
+html .sidebar__head .sidebar__head-organization .bp4-button.bp4-button:not(.bp4-minimal) { box-shadow: none !important; outline: none !important; border: 0 !important; background: transparent !important; padding-left: 0; }
+.sidebar__head-organization .bp4-button:focus-visible { outline: 2px solid var(--e-line) !important; }
+
+// night, by name: the sidebar, its menu rows and the popovers stay warm umber, never slate
+html body.bp4-dark {
+  --color-sidebar-background: var(--e-card); --color-sidebar-text: var(--e-ink); --color-sidebar-menu-item-text: var(--e-ink);
+  --color-sidebar-menu-item-text-hover: var(--e-ink); --color-sidebar-menu-item-active-text: var(--e-ink);
+  --color-sidebar-menu-item-hover-background: var(--e-rule); --color-sidebar-menu-item-active-background: var(--e-rule);
+  --color-sidebar-menu-item-focus-background: var(--e-rule); --color-sidebar-menu-label-color: var(--e-mute); --color-sidebar-toggle: var(--e-mute);
+}
+html body.bp4-dark .sidebar, html body.bp4-dark .sidebar__inner { background: var(--e-card) !important; }
+html body.bp4-dark .bp4-popover .bp4-popover-content, html body.bp4-dark .bp4-popover2 .bp4-popover2-content,
+html body.bp4-dark .bp4-menu { background: var(--e-card) !important; color: var(--e-ink) !important; }
+.sidebar__eclair-e svg { width: 100%; height: 100%; display: block; }

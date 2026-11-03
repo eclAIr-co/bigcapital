@@ -9,12 +9,15 @@ NAMES = {  # eclAIr's names, by key
     'profit_loss_sheet': 'Profit and loss', 'homepage': 'Home', 'sales_inventory': 'Sales and inventory', 'financial': 'Accounting',
     'back_to_list': 'Back to the list', 'there_is_no_results_in_the_table': 'Nothing here yet.', 'accounting_basis': 'Basis:',
     'customize_report': 'Change the report', 'table_views': 'Views', 'quick_new': 'New',
+    'financial_accounting': 'Financial Accounting',  # Keith, 3 Nov 2026: the home page's section title
 }
 KEEP = {'VAT', 'USD', 'PDF', 'CSV', 'XLSX', 'A/R', 'A/P', 'ID', 'SKU', 'UPC', 'API', 'URL', 'SMS', 'GST', 'TIN', 'EIN', 'FAQ', 'IBAN',
         'Bigcapital', 'Stripe', 'Plaid', 'Lemon', 'Squeezy', 'Excel', 'Google', 'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
         'Saturday', 'Sunday', 'I', 'eclAIr'}
 def sentence(v):
+    lead = v[:len(v) - len(v.lstrip())]
+    if lead: return lead + sentence(v.lstrip())
     words = v.split(' ')
     if len(words) < 2 or len(words) > 6: return v
     caps = [w for w in words if w[:1].isupper()]

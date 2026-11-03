@@ -26,6 +26,10 @@ import {
 } from '@/hooks/query';
 import { useAuthOrganizationId, useAuthActions } from '@/hooks/state';
 import { firstLettersArgs } from '@/utils';
+// eclAIr books: the head of the sidebar is Nicki's eclair script alone, in the page's ink; it still opens the organization menu,
+// which names the organization (Keith, 3 Nov 2026).
+import eclairScript from '@/eclair/eclair-script.svg?raw';
+import eclairE from '@/eclair/eclair-e.svg?raw';
 
 // Popover modifiers.
 const POPOVER_MODIFIERS = {
@@ -166,7 +170,7 @@ function SidebarHeadJSX({
                 gap={3}
                 py={'8px'}
                 px={'10px'}
-                backgroundColor="rgba(255, 255, 255, 0.05)"
+                backgroundColor="var(--e-paper)"
                 borderRadius={4}
               >
                 {metadata?.logoUri ? (
@@ -182,18 +186,13 @@ function SidebarHeadJSX({
                   <x.div
                     h={'60px'}
                     w={'60px'}
-                    lineHeight="60px"
-                    borderRadius={10}
-                    backgroundColor="#CB22E5"
-                    textAlign="center"
-                    fontWeight={400}
-                    fontSize={16}
-                    color="#fff"
-                  >
-                    {firstLettersArgs(...(metadata?.name || '').split(' '))}
-                  </x.div>
+                    p={'8px'}
+                    color="var(--e-ink)"
+                    className="sidebar__eclair-e"
+                    dangerouslySetInnerHTML={{ __html: eclairE }}
+                  />
                 )}
-                <x.div fontWeight={600} color="#fff">
+                <x.div fontWeight={600} color="var(--e-ink)">
                   {metadata?.name}
                 </x.div>
               </x.div>
@@ -259,13 +258,14 @@ function SidebarHeadJSX({
                             <x.div
                               w={'28px'}
                               h={'28px'}
-                              borderRadius={'10px'}
-                              backgroundColor="#5c7c99"
+                              borderRadius={0}
+                              backgroundColor="transparent"
+                              border="1px solid var(--e-line)"
                               display="flex"
                               alignItems="center"
                               justifyContent="center"
                               fontSize={12}
-                              color="#fff"
+                              color="var(--e-ink)"
                               flexShrink={0}
                             >
                               {initials}
@@ -327,9 +327,10 @@ function SidebarHeadJSX({
         >
           <Button
             className="title"
-            rightIcon={<SidebarIcon icon={'caret-down-16'} size={16} />}
+            aria-label={metadata?.name}
+            title={metadata?.name}
           >
-            {metadata?.name}
+            <span className="sidebar__eclair" dangerouslySetInnerHTML={{ __html: eclairScript }} />
           </Button>
         </Popover>
         <span className="subtitle">
