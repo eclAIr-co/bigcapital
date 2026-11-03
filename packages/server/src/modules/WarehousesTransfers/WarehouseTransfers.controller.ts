@@ -1,0 +1,272 @@
+import {
+  Controller,
+  Post,
+  Put,
+  Get,
+  Delete,
+  Body,
+  Param,
+  Query,
+  Inject,
+  HttpCode,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiExtraModels,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
+import { WarehouseTransferApplication } from './WarehouseTransferApplication';
+import {
+  CreateWarehouseTransferDto,
+  EditWarehouseTransferDto,
+} from './dtos/WarehouseTransfer.dto';
+import { GetWarehouseTransfersQueryDto } from '../Warehouses/dtos/GetWarehouseTransfersQuery.dto';
+import { WarehouseTransferResponseDto } from './dtos/WarehouseTransferResponse.dto';
+import { PaginatedResponseDto } from '@/common/dtos/PaginatedResults.dto';
+import {
+  BulkDeleteDto,
+  ValidateBulkDeleteResponseDto,
+} from '@/common/dtos/BulkDelete.dto';
+import { ApiCommonHeaders } from '@/common/decorators/ApiCommonHeaders';
+import { RequirePermission } from '@/modules/Roles/RequirePermission.decorator';
+import { PermissionGuard } from '@/modules/Roles/Permission.guard';
+import { AuthorizationGuard } from '@/modules/Roles/Authorization.guard';
+import { AbilitySubject } from '@/modules/Roles/Roles.types';
+import { WarehouseTransferAction } from '../Warehouses/Warehouse.types';
+
+@Controller('warehouse-transfers')
+@ApiTags('Warehouse Transfers')
+@ApiExtraModels(WarehouseTransferResponseDto, PaginatedResponseDto)
+@ApiExtraModels(ValidateBulkDeleteResponseDto)
+@ApiCommonHeaders()
+@UseGuards(AuthorizationGuard, PermissionGuard)
+export class WarehouseTransfersController {
+  /**
+   * @param {WarehouseTransferApplication} warehouseTransferApplication - Warehouse transfer application.
+   */
+  constructor(
+    @Inject(WarehouseTransferApplication)
+    private readonly warehouseTransferApplication: WarehouseTransferApplication,
+  ) {}
+
+  /**
+   * Validates which warehouse transfers can be deleted and returns the results.
+   */
+  @Post('validate-bulk-delete')
+  @RequirePermission(WarehouseTransferAction.DELETE, AbilitySubject.Warehouse)
+  @ApiOperation({
+    summary:
+      'Validates which warehouse transfers can be deleted and returns the results.',
+  })
+  @HttpCode(200)
+  @ApiResponse({
+    status: 200,
+    description:
+      'Validation completed with counts and IDs of deletable and non-deletable warehouse transfers.',
+    schema: {
+      $ref: getSchemaPath(ValidateBulkDeleteResponseDto),
+    },
+  })
+  async validateBulkDeleteWarehouseTransfers(
+    @Body() bulkDeleteDto: BulkDeleteDto,
+  ): Promise<ValidateBulkDeleteResponseDto> {
+    return this.warehouseTransferApplication.validateBulkDeleteWarehouseTransfers(
+      bulkDeleteDto.ids,
+    );
+  }
+
+  /**
+   * Deletes multiple warehouse transfers.
+   */
+  @Post('bulk-delete')
+  @RequirePermission(WarehouseTransferAction.DELETE, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Deletes multiple warehouse transfers.' })
+  @HttpCode(200)
+  @ApiResponse({
+    status: 200,
+    description: 'Warehouse transfers deleted successfully.',
+  })
+  async bulkDeleteWarehouseTransfers(
+    @Body() bulkDeleteDto: BulkDeleteDto,
+  ): Promise<void> {
+    return this.warehouseTransferApplication.bulkDeleteWarehouseTransfers(
+      bulkDeleteDto.ids,
+      { skipUndeletable: bulkDeleteDto.skipUndeletable ?? false },
+    );
+  }
+
+  /**
+   * Creates a new warehouse transfer transaction.
+   */
+  @Post()
+  @RequirePermission(WarehouseTransferAction.CREATE, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Create a new warehouse transfer transaction.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer transaction has been created successfully.',
+  })
+  async createWarehouseTransfer(
+    @Body() createWarehouseTransferDTO: CreateWarehouseTransferDto,
+  ) {
+    const warehouse =
+      await this.warehouseTransferApplication.createWarehouseTransfer(
+        createWarehouseTransferDTO,
+      );
+
+    return {
+      id: warehouse.id,
+      message:
+        'The warehouse transfer transaction has been created successfully.',
+    };
+  }
+
+  /**
+   * Edits warehouse transfer transaction.
+   */
+  @Put(':id')
+  @RequirePermission(WarehouseTransferAction.EDIT, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Edit the given warehouse transfer transaction.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer transaction has been edited successfully.',
+  })
+  async editWarehouseTransfer(
+    @Param('id') id: number,
+    @Body() editWarehouseTransferDTO: EditWarehouseTransferDto,
+  ) {
+    const warehouseTransfer =
+      await this.warehouseTransferApplication.editWarehouseTransfer(
+        id,
+        editWarehouseTransferDTO,
+      );
+    return {
+      id: warehouseTransfer.id,
+      message:
+        'The warehouse transfer transaction has been edited successfully.',
+    };
+  }
+
+  /**
+   * Initiates the warehouse transfer.
+   */
+  @Put(':id/initiate')
+  @RequirePermission(WarehouseTransferAction.EDIT, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Initiate the given warehouse transfer.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The warehouse transfer has been initiated successfully.',
+  })
+  async initiateTransfer(@Param('id') id: number) {
+    await this.warehouseTransferApplication.initiateWarehouseTransfer(id);
+
+    return {
+      id,
+      message: 'The given warehouse transfer has been initialized.',
+    };
+  }
+
+  /**
+   * Marks the given warehouse transfer as transferred.
+   */
+  @Put(':id/transferred')
+  @RequirePermission(WarehouseTransferAction.EDIT, AbilitySubject.Warehouse)
+  @ApiOperation({
+    summary: 'Mark the given warehouse transfer as transferred.',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer has been marked as transferred successfully.',
+  })
+  async deliverTransfer(@Param('id') id: number) {
+    await this.warehouseTransferApplication.transferredWarehouseTransfer(id);
+
+    return {
+      id,
+      message: 'The given warehouse transfer has been delivered.',
+    };
+  }
+
+  /**
+   * Retrieves warehouse transfer transactions with pagination.
+   */
+  @Get()
+  @RequirePermission(WarehouseTransferAction.VIEW, AbilitySubject.Warehouse)
+  @ApiOperation({
+    summary: 'Retrieve warehouse transfer transactions with pagination.',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer transactions have been retrieved successfully.',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(PaginatedResponseDto) },
+        {
+          properties: {
+            data: {
+              type: 'array',
+              items: { $ref: getSchemaPath(WarehouseTransferResponseDto) },
+            },
+          },
+        },
+      ],
+    },
+  })
+  async getWarehousesTransfers(@Query() query: GetWarehouseTransfersQueryDto) {
+    const { data, pagination, filter } =
+      await this.warehouseTransferApplication.getWarehousesTransfers(query);
+
+    return {
+      data,
+      pagination,
+      filter,
+    };
+  }
+
+  /**
+   * Retrieves warehouse transfer transaction details.
+   */
+  @Get(':id')
+  @RequirePermission(WarehouseTransferAction.VIEW, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Retrieve warehouse transfer transaction details.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer transaction details have been retrieved successfully.',
+    schema: {
+      $ref: getSchemaPath(WarehouseTransferResponseDto),
+    },
+  })
+  async getWarehouseTransfer(@Param('id') id: number) {
+    const warehouseTransfer =
+      await this.warehouseTransferApplication.getWarehouseTransfer(id);
+
+    return warehouseTransfer;
+  }
+
+  /**
+   * Deletes the given warehouse transfer transaction.
+   */
+  @Delete(':id')
+  @RequirePermission(WarehouseTransferAction.DELETE, AbilitySubject.Warehouse)
+  @ApiOperation({ summary: 'Delete the given warehouse transfer transaction.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'The warehouse transfer transaction has been deleted successfully.',
+  })
+  async deleteWarehouseTransfer(@Param('id') id: number) {
+    await this.warehouseTransferApplication.deleteWarehouseTransfer(id);
+
+    return {
+      message:
+        'The warehouse transfer transaction has been deleted successfully.',
+    };
+  }
+}
